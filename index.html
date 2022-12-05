@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Health Insurance Risk Calculator</title>
+</head>
+<body>
+<h1>Health Insurance Risk Calculator</h1>
+<p>Please Answer the Following Questions To Help Determine Information in Regards to Your Health Insurance.
+    <br />This Information Will Be Used To Assess Potential Risk For Your Health Insurance Company</p>
+    <style>
+        body {
+            text-align: center;
+        background-color: rgb(226, 43, 153);
+        font-size: large;
+    }
+    </style>
+</p>
+</br></br>
+<label class="l1" name = "age">How Old Are You? (Select Age Range)</label>
+    <br />
+    <select id="Age">
+        <option></option>
+        <option value="0">Under 30 years old</option>
+        <option value="10">30 to 45 years old</option>
+        <option value="20">45 to 60 years old</option>
+        <option value="30">Over 60 years old</option>
+    </select>
+    <br /><br />
+    <label class="i1">How Tall Are You? (Input Approximate Height in Feet and Inches)</label>
+    <br />
+    <input id="heightFeet" type="number"></input> ft 
+    </br></br>
+    <input id="height_in_inches" type="number"></input> in
+    <br /><br />
+    <label class="i2">How Much Do You Weigh? (Input Approximate Weight in Pounds)</label>
+    <br />
+    <input id="weight" type="number"></input> lbs
+    <br /><br />
+    <label class="i3">What Is Your Approximate Systolic Blood Pressure?</label>
+    <br />
+    <input id="systolic" type="number"></input>
+    <br /><br />
+    <label class="i4">What Is Your Approximate Diastolic Blood Pressure?</label>
+    <br />
+    <input id="diastolic" type="number"></input>
+    <br /><br />
+    <label class="l2">Does Your Family Have A History of Diabetes?</label>
+    <select id="diabetes">
+        <option></option>
+        <option value="10">Yes</option>
+        <option value="0">No</option>
+    </select>
+    <br /><br />
+    <label class="l3">Does Your Family Have A History Of Cancer?</label>
+    <select id="cancer">
+        <option></option>
+        <option value="10">Yes</option>
+        <option value="0">No</option>
+    </select>
+        <br /><br />
+        <label class="l4">Does Your Family Have A History Of Alzheimers?</label>
+        <select id="alzheimers">
+            <option></option>
+            <option value="10">Yes</option>
+            <option value="0">No</option>
+        </select>
+        <br /><br />
+        <button onclick="totalRisk()">Calculate Risk</button>
+        <p id="Insurance"></p>
+        <script>
+            console.log("Health Insurance Risk Calculator");
+            function totalRisk() {
+                console.log("totalRisk");
+                let ageRisk = document.getElementById("Age").selectedOptions[0].value;
+                let diabetesRisk = parseInt(document.getElementById("diabetes").selectedOptions[0].value);
+                let cancerRisk = parseInt(document.getElementById("cancer").selectedOptions[0].value);
+                let alzheimersRisk = parseInt(document.getElementById("alzheimers").selectedOptions[0].value);
+                let weightInPounds = document.getElementById("weight").value;
+                let weightInKilograms = weightInPounds / 2.2;
+                let heightInFeet = document.getElementById("heightFeet").value;
+                let heightInInches = document.getElementById("height_in_inches").value;
+                let heightInches = heightInFeet * 12;
+                let totalHeight = heightInches + 3
+                let heightMeters = totalHeight * .0254;
+                console.log("total height: " + totalHeight);
+                console.log("height in feet: " + heightInFeet);
+                console.log("height in inches: " + heightInches);
+                console.log("Height in meters: " + heightMeters);
+                let bmiRisk = weightInKilograms / Math.pow(heightMeters, 2)
+                console.log("BMI Check: " + bmiRisk);
+                let totalRisk = ageRisk + diabetesRisk + cancerRisk + alzheimersRisk;
+                let familyHistoryImpact = cancerRisk + diabetesRisk + alzheimersRisk;              
+                console.log("Total Risk: " + totalRisk);
+                if (bmiRisk <=25.0 && bmiRisk >= 29.9) {
+                    totalRisk + 30
+                }
+                    else if(bmiRisk <= 30.0 && bmiRisk >=34.9){
+                        totalRisk + 75
+                    }
+                    else if(bmiRisk <= 18.5 && bmiRisk >= 24.9) {
+                        totalRisk + 0
+                    }
+                    else {
+                        totalRisk + 0
+                    }
+                if(totalRisk <= 20){
+                    alert("You Are Low Risk")
+                }
+                    else if (totalRisk <=50){
+                        alert("You Are Moderate Risk")
+                    }
+                    else if (totalRisk <=75){
+                        alert("You Are High Risk")
+                    }
+                    else {
+                        alert("You Are Uninsurable")
+                    }
+            }
+        </script>
+</body>
+
+</html>
